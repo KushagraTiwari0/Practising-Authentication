@@ -34,6 +34,7 @@ require("dotenv").config();
 const path = require("path");
 
 const connectDb = require("./config/Db");
+const UserRouter= require("./routes/UserRouter")
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -49,6 +50,9 @@ app.use(express.static(frontendPath));
 app.get("/", (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
+
+app.use("/user",UserRouter)
+
 
 // Start server ONLY after DB connection
 const startServer = async () => {
