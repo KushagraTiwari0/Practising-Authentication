@@ -45,10 +45,10 @@ UserRouter.post("/login",async(req,res)=>{
             })
         }
         else{
-            res.status(403).json({messgae:"User not registered, Please register"})
+            res.status(403).json({message:"User not registered, Please register"})
         }
     } catch (error) {
-        req.status(500).json({message:error.message})
+        res.status(500).json({message:error.message})
         
     }
 })
