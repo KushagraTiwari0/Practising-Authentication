@@ -1,7 +1,11 @@
 const express=require("express")
+require("dotenv").config();
 const UserModel=require("../models/UserModel")
 const bcrypt=require("bcrypt")
+const jwt=require("jsonwebtoken")
 const UserRouter=express.Router()
+
+const key=process.env.SECURITY_KEY
 
 UserRouter.post("/signUp",async(req,res)=>{
     const {username,email,password}=req.body
@@ -32,7 +36,8 @@ UserRouter.post("/login",async(req,res)=>{
             bcrypt.compare(password,ExistingUser.password,(err,result)=>{
                 if(result)
                 {
-                    res.status(200).json({message:"User Logged in Successfully"})
+                    const token=jwt.sign({key:"value"},key)
+                    res.status(200).json({message:"User Logged in Successfully",token:token})
                 }
                 else{
                     res.status(401).json({message:"Wrong Password"})
