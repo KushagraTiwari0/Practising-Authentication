@@ -21,7 +21,7 @@ BookRouter.post('/add',async(req,res)=>{
 })
 
 
-BookRouter.patch('/update',async(req,res)=>{
+BookRouter.patch('/update/:id',async(req,res)=>{
     const {id}=req.params
     const payload=req.body
     try {
@@ -34,11 +34,11 @@ BookRouter.patch('/update',async(req,res)=>{
 })
 
 
-BookRouter.delete('/update',async(req,res)=>{
+BookRouter.delete('/delete/:id',async(req,res)=>{
     const {id}=req.params
     const payload=req.body
     try {
-        const deleteBook=await BookModel.findByIdAndDelete(id)
+        const deleteBook=await BookModel.findByIdAndDelete(id,req.body)
         
         res.status(200).json({message:`Book details of ${id} deleted `,data:deleteBook })
     } catch (error) {
